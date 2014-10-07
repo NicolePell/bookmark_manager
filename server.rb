@@ -1,5 +1,6 @@
 require 'data_mapper'
 require 'sinatra'
+require 'rack-flash'
 
 env = ENV["RACK_ENV"] || "development"
 # we're telling datamapper to use a postgres database on localhost. The name will be "bookmark_manager_test" or "bookmark_manager_development" depending on the environment
@@ -18,6 +19,7 @@ DataMapper.auto_upgrade!
 
 	enable :sessions
 	set :session_secret, 'super secret'
+	use Rack::Flash, :sweep => true
 
   get '/' do
     @links = Link.all
@@ -42,15 +44,22 @@ DataMapper.auto_upgrade!
   end
 
   get '/users/new' do
+  	@user = User.new
   	erb :"users/new"
   end	
 
   post '/users' do
-  	user = User.create(:email => params[:email],
+  	@user = User.create(:email => params[:email],
   				:password => params[:password],
   				:password_confirmation => params[:password_confirmation])
-  	session[:user_id] = user.id
-  	redirect to('/')
+  	if @user.save
+  		session[:user_id] = @user.id
+  		redirect to('/')
+
+  	else
+  		flash.now[:errors] = @user.errors.full_messages
+  		erb :"users/new"
+  	end	
   end	
 
   helpers do
