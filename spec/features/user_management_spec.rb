@@ -76,3 +76,28 @@ feature "User signs in" do
       expect(page).not_to have_content("Welcome, test@test.com")
     end
   end
+
+  feature 'reset password' do
+
+    before(:each) do
+      User.create(:email => "test@test.com",
+                  :password => 'test',
+                  :password_confirmation => 'test')
+    end
+
+    scenario 'when password is forgotten' do
+      visit 'sessions/new'
+      click_link 'Forgotten password'
+      expect(page).to have_content("Please enter your email address")
+    end
+
+    scenario 'when user fills out form' do
+      visit '/users/create_token'
+      fill_in :email, :with => 'test@test.com'
+      click_button 'Reset password'
+      user = User.first(:email => 'test@test.com')
+      expect(user.email).to eq "test@test.com"
+    end
+
+  end
+
