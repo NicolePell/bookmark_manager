@@ -23,4 +23,5 @@ DataMapper.auto_upgrade!
 	enable :sessions
 	set :session_secret, 'super secret'
 	use Rack::Flash, :sweep => true
-  set :partial_template_engine, :erb
+ 	set :partial_template_engine, :erb
+ 	set :root, File.dirname(__FILE__)
