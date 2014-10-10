@@ -99,5 +99,13 @@ feature "User signs in" do
       expect(user.email).to eq "test@test.com"
     end
 
+    scenario 'when user requests new token' do
+      visit '/users/create_token'
+      fill_in :email, :with => 'test@test.com'
+      click_button 'Reset password'
+      expect(page).to have_content("An email has been sent to your account.")
+
+    end
+
   end
 
