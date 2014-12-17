@@ -5,12 +5,12 @@ This project is a site to manage a collection of links organised by tags, simila
 
 Features:
 ---------
-[ ] User can sign up with email and password that is stored in the database
-[ ] User can sign in with email and password retrieved from the database
-[ ] User cannot sign in with the incorrect credentials
-[ ] User can sign out
-[ ] User can create a bookmark of a URL link which is saved in the database
-[ ] Whether a user is signed in or not they can view a list of URL links on the homepage
+- [ ] User can sign up with email and password that is stored in the database
+- [ ] User can sign in with email and password retrieved from the database
+- [ ] User cannot sign in with the incorrect credentials
+- [ ] User can sign out
+- [ ] User can create a bookmark of a URL link which is saved in the database
+- [ ] Whether a user is signed in or not they can view a list of URL links on the homepage
 
 How to use:
 -----------
